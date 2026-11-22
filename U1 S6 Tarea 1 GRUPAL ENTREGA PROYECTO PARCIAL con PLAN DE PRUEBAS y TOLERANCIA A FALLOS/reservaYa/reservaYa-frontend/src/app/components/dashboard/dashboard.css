@@ -1,0 +1,202 @@
+.dashboard{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.dashboard-contenido{
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
+    background-color: aliceblue;
+}
+
+main{
+    width: 100%;
+    height: 100%;
+    padding: 28px;
+    background-color: #F8FAFC;
+    font-family: 'Inter', sans-serif;
+}
+
+.encabezado{
+    margin-bottom: 24px;
+}
+
+.encabezado > h2{
+    font-weight: 700;
+    font-size: 24px;
+    color: #0F172B;
+}
+
+.encabezado > p{
+    font-weight: 400;
+    font-size: 14px;
+    color: #62748E;
+}
+
+.tarjetasResumen{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.tarjeta{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    border-radius: 16px;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+}
+
+.tarjeta-titulo{
+    font-weight: 500;
+    font-size: 14px;
+    color: #62748E;
+}
+
+.tarjeta-valor{
+    margin: 6px 0;
+    font-weight: 700;
+    font-size: 30px;
+    color: #0F172B;
+}
+
+.tarjeta small{
+    font-size: 12px;
+    color: #94A3B8;
+}
+
+.tarjeta-icono{
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 12px;
+    color: #16A34A;
+    background-color: #DCFCE7;
+}
+
+.panel{
+    width: 100%;
+    border-radius: 16px;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+}
+
+.panel-encabezado{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.panel-encabezado h3{
+    font-weight: 700;
+    font-size: 16px;
+    color: #0F172B;
+}
+
+.panel-encabezado p{
+    font-size: 12px;
+    color: #62748E;
+}
+
+.ver-todas{
+    font-weight: 700;
+    font-size: 14px;
+    color: #16A34A;
+    text-decoration: none;
+}
+
+.reserva{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.reserva:last-child{
+    border-bottom: none;
+}
+
+.reserva-icono{
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 9px;
+    border-radius: 10px;
+    color: #62748E;
+    background-color: #F1F5F9;
+}
+
+.reserva-info{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.reserva-info > strong{
+    font-weight: 600;
+    font-size: 14px;
+    color: #0F172B;
+}
+
+.reserva-info > span{
+    font-size: 12px;
+    color: #62748E;
+}
+
+.reserva-fecha{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.reserva-fecha > strong{
+    font-weight: 600;
+    font-size: 14px;
+    color: #0F172B;
+}
+
+.reserva-fecha > span{
+    font-size: 12px;
+    color: #62748E;
+}
+
+.badge{
+    min-width: 90px;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 9999px;
+}
+
+.badge.confirmada{
+    background-color: #DCFCE7;
+    color: #15803D;
+}
+
+.badge.pendiente{
+    background-color: #FEF9C3;
+    color: #A16207;
+}
+
+.badge.cancelada{
+    background-color: #F1F5F9;
+    color: #475569;
+}
+
+.vacio{
+    padding: 24px;
+    text-align: center;
+    color: #94A3B8;
+}

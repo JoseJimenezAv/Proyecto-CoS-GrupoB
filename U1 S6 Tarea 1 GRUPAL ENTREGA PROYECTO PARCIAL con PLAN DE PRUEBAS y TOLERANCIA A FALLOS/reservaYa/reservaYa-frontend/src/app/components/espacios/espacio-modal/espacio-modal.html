@@ -1,0 +1,57 @@
+<!-- Contenedor principal del modal para crear o editar un espacio -->
+<div class="modal-contenedor">
+    <!-- Encabezado con título dinámico según el modo y botón para cerrar el diálogo -->
+    <div class="modal-encabezado">
+        <h2>{{ esModoEditar ? 'Editar espacio' : 'Nuevo espacio'}}</h2>
+        <svg [mat-dialog-close]="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon" style="cursor: pointer;"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </div>
+
+    <!-- Formulario reactivo vinculado a espacioModalFormulario -->
+    <form [formGroup]="espacioModalFormulario" (ngSubmit)="guardar()">
+        <!-- Campos de nombre y tipo del espacio -->
+        <div class="grupo-formulario">
+            <label>Nombre</label>
+            <input type="text" formControlName="nombre" [class.invalido]="campoInvalido('nombre')">
+        </div>
+
+        <div class="grupo-formulario">
+            <label>Tipo</label>
+            <input type="text" formControlName="tipo" [class.invalido]="campoInvalido('tipo')">
+        </div>
+
+        <!-- Fila con capacidad máxima y tarifa por hora -->
+        <div class="fila-formulario">
+            <div class="grupo-formulario">
+                <label>Capacidad</label>
+                <input type="number" step="1" min="0" formControlName="capacidad" [class.invalido]="campoInvalido('capacidad')">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Precio por hora ($)</label>
+                <input type="number" step="0.01" min="0" formControlName="precio_hora" [class.invalido]="campoInvalido('precio_hora')">
+            </div>
+        </div>
+
+        <!-- Selector de estado operativo del espacio -->
+        <div class="grupo-formulario" [class.invalido]="campoInvalido('estado')">
+            <label>Estado</label>
+            <select formControlName="estado">
+                <option value="Disponible">Disponible</option>
+                <option value="Mantenimiento">Mantenimiento</option>
+            </select>
+        </div>
+
+        @if (mensajeError()) {
+            <div class="mensajeError" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                <span>{{ mensajeError() }}</span>
+            </div>
+        }
+
+        <!-- Botones de acción para cancelar o guardar los cambios -->
+        <div mat-dialog-actions class="botones-modal">
+            <button type="button" [mat-dialog-close]="false" class="btnCancelar">Cancelar</button>
+            <button type="submit" class="btnGuardar">{{ esModoEditar ? 'Actualizar espacio' : 'Guardar espacio' }}</button>
+        </div>
+    </form>
+</div>

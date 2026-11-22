@@ -1,0 +1,40 @@
+# Node / Angular (en cualquier subcarpeta)
+node_modules/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+.angular/
+npm-debug.log
+yarn-error.log
+coverage/
+testem.log
+.sass-cache/
+connect.lock
+typings/
+__screenshots__/
+
+# PHP
+vendor/
+.env
+*.log
+
+# IDEs y editores
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# Sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,81 @@
+<!-- Contenedor principal del dashboard -->
+<div class="dashboard">
+    <!-- Barra lateral de navegación -->
+    <app-sidebar></app-sidebar>
+    
+    <!-- Área principal con barra superior y contenido del panel -->
+    <div class="dashboard-contenido">
+        <!-- Barra superior de navegación -->
+        <app-navbar></app-navbar>
+
+        <main>
+            <!-- Encabezado de bienvenida con saludo dinámico y nombre del usuario -->
+            <div class="encabezado">
+                <h2>{{ saludo }}, {{ nombreUsuario }}</h2>
+                <p>Aquí tienes el resumen de tu negocio.</p>
+            </div>
+
+            <!-- Tarjetas de indicadores clave (reservas del día, espacios disponibles y clientes) -->
+            <section class="tarjetasResumen">
+                <article class="tarjeta">
+                    <div>
+                        <span class="tarjeta-titulo">Reservas de hoy</span>
+                        <p class="tarjeta-valor">{{ cantidadReservasHoy }}</p>
+                        <small>{{ fechaHoy }}</small>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tarjeta-icono lucide lucide-calendar-check preview-icon"><path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="m9 15 2 2 4-4"/></svg>
+                </article>
+
+                <article class="tarjeta">
+                    <div>
+                        <span class="tarjeta-titulo">Espacios disponibles</span>
+                        <p class="tarjeta-valor">{{ espaciosDisponibles }}</p>
+                        <small>de {{ totalEspacios }} espacios</small>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tarjeta-icono lucide lucide-square-padding preview-icon"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M14 17h-4"/><path d="M14 7h-4"/><path d="M17 14v-4"/><path d="M7 14v-4"/></svg>
+                </article>
+
+                <article class="tarjeta">
+                    <div>
+                        <span class="tarjeta-titulo">Clientes registrados</span>
+                        <p class="tarjeta-valor">{{ cantidadClientes }}</p>
+                        <small>Base de clientes</small>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tarjeta-icono lucide lucide-users-round preview-icon"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>
+                </article>
+            </section>
+
+            <!-- Panel de próximas reservas activas con enlace directo a la vista de reservas -->
+            <section class="panel">
+                <div class="panel-encabezado">
+                    <div>
+                        <h3>Próximas reservas</h3>
+                        <p>Reservas confirmadas y pendientes</p>
+                    </div>
+                    <a routerLink="/reservas" class="ver-todas">Ver todas</a>
+                </div>
+
+                <!-- Lista de próximas reservas o mensaje vacío si no existen -->
+                @for (r of proximasReservas; track r.id_reserva) {
+                    <div class="reserva">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="reserva-icono lucide lucide-clock preview-icon"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+
+                        <div class="reserva-info">
+                            <strong>{{ r.espacio_nombre }}</strong>
+                            <span>{{ r.cliente_nombre }}</span>
+                        </div>
+
+                        <div class="reserva-fecha">
+                            <strong>{{ formatearFecha(r.fecha) }}</strong>
+                            <span>{{ r.hora_inicio.substring(0, 5) }} - {{ r.hora_fin.substring(0, 5) }}</span>
+                        </div>
+
+                        <span class="badge" [class]="'badge ' + claseEstado(r.estado)">{{ r.estado }}</span>
+                    </div>
+                } @empty {
+                    <p class="vacio">No hay reservas próximas.</p>
+                }
+            </section>
+        </main>
+    </div>
+</div>

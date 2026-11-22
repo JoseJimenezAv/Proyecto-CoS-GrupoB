@@ -1,0 +1,62 @@
+<!-- Contenedor principal de la vista de listado de reservas -->
+<div class="reservas">
+    <!-- Barra lateral de navegación -->
+    <app-sidebar></app-sidebar>
+    
+    <!-- Área de contenido principal -->
+    <div class="reservas-contenido">
+        <!-- Barra superior de navegación -->
+        <app-navbar></app-navbar>
+
+        <main>
+            <!-- Encabezado con descripción y botón para abrir el modal de nueva reserva -->
+            <div class="cabecera">
+                <p>Consulta y administra todas las reservas.</p>
+                <button (click)="abrirModalReservaCrear()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus preview-icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    Nueva Reserva
+                </button>
+            </div>
+
+            <!-- Tabla con el listado de reservas, estado y acciones de confirmación/cancelación -->
+            <div class="tabla">
+                <table>
+                    <thead>
+                        <tr class="encabezado-tabla">
+                            <th>FECHA</th>
+                            <th>HORARIO</th>
+                            <th>ESPACIO</th>
+                            <th>CLIENTE</th>
+                            <th>ESTADO</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cuerpo-tabla">
+                        <!-- Itera sobre listaReservas y renderiza una fila por reserva -->
+                        @for (reserva of listaReservas; track reserva.id_reserva) {
+                            <tr>
+                                <td>{{ reserva.fecha }}</td>
+                                <td>{{ reserva.hora_inicio }} - {{ reserva.hora_fin }}</td>
+                                <td>{{ reserva.espacio_nombre }}</td>
+                                <td>{{ reserva.cliente_nombre }}</td>
+                                <!-- Badge de estado estilizado dinámicamente según el estado de la reserva -->
+                                <td>
+                                    <span class="badge" [ngClass]="{
+                                    'badge-confirmada': reserva.estado === 'Confirmada',
+                                    'badge-pendiente': reserva.estado === 'Pendiente',
+                                    'badge-cancelada': reserva.estado === 'Cancelada'
+                                    }">{{ reserva.estado }}</span>
+                                </td>    
+                                <!-- Botones de acción para confirmar o cancelar la reserva -->
+                                <td class="acciones-tabla">
+                                    <svg (click)="cambiarEstado(reserva, 'Confirmada')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btnConfirmar lucide lucide-check preview-icon"><path d="M20 6 9 17l-5-5"/></svg>
+                                    <svg (click)="cambiarEstado(reserva, 'Cancelada')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btnCancelar lucide lucide-x preview-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>

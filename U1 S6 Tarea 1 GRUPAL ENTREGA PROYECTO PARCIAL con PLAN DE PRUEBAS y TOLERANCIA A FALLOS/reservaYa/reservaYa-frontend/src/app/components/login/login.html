@@ -1,0 +1,49 @@
+<!-- Contenedor principal de la vista de inicio de sesión del sistema ReservaYa -->
+<div class="login">
+    <!-- Panel izquierdo con identidad de marca y mensaje introductorio -->
+    <div class="panelMarca">
+        <div class="logo">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#008236" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar preview-icon"><path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg></span>
+            <p>ReservaYa</p>
+        </div>
+
+        <div class="contenido">
+            <span>ADMINISTRA CON FACILIDAD</span>
+            <h1>Tus espacios y reservas, en un solo lugar.</h1>
+            <p>Organiza canchas, salones y clientes de forma simple, rápida y segura.</p>
+        </div>
+
+        <p class="copyright">© 2026 ResevaYa</p>
+    </div>
+    
+    <!-- Panel derecho con el formulario reactivo de autenticación -->
+    <div class="panelIniciarSesion">
+        <div class="inicioSesionContenido">
+            <span>Bienvenido de nuevo</span>
+            <h2>Inicia sesión</h2>
+            <p>Ingresa tus datos para acceder al sistema.</p>
+
+            <!-- Formulario vinculado a formularioInicioSesion para autenticar al administrador -->
+            <form [formGroup]="formularioInicioSesion" (ngSubmit)="iniciarSesion()" class="formulario">
+                <div>
+                    <label>Usuario:</label>
+                    <input type="text" formControlName="usuario" (input)="limpiarError()">
+                </div>
+
+                <div>
+                    <label>Contraseña:</label>
+                    <input type="password" formControlName="password" (input)="limpiarError()">
+                </div>
+
+                @if(mensajeError()){
+                    <div class="mensajeError" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                        <span>{{ mensajeError() }}</span>
+                    </div>
+                }
+
+                <button type="submit">Ingresar</button>
+            </form>
+        </div>
+    </div>
+</div>

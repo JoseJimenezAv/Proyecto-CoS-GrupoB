@@ -1,0 +1,66 @@
+<!-- Contenedor principal del modal para crear una nueva reserva -->
+<div class="modal-contenedor">
+    <!-- Encabezado con título fijo y botón para cerrar el diálogo -->
+    <div class="modal-encabezado">
+        <h2>Nueva reserva</h2>
+        <svg [mat-dialog-close]="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon" style="cursor: pointer;"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </div>
+
+    <!-- Formulario reactivo vinculado a reservaModalFormulario -->
+    <form [formGroup]="reservaModalFormulario" (ngSubmit)="guardar()">
+        <!-- Selector de cliente a partir de listaClientes -->
+        <div class="grupo-formulario">
+            <label>Cliente</label>
+            <select formControlName="id_cliente">
+                <option value="" disabled>Selecciona un cliente</option>
+                @for (cliente of listaClientes(); track cliente.id_cliente) {
+                    <option value="{{ cliente.id_cliente }}">{{ cliente.nombre_completo }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Selector de espacio disponible a partir de listaEspacios -->
+        <div class="grupo-formulario">
+            <label>Espacio</label>
+            <select formControlName="id_espacio" (change)="limpiarError()" [class.invalido]="campoInvalido('id_espacio')">
+                <option value="" disabled>Selecciona un espacio</option>
+                @for (espacio of listaEspacios(); track espacio.id_espacio) {
+                    <option value="{{ espacio.id_espacio }}">{{ espacio.nombre }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Selección de fecha restringida desde la fecha mínima permitida -->
+        <div class="grupo-formulario">
+            <label>Fecha</label>
+            <input type="date" [min]="fechaMinima" formControlName="fecha" (input)="limpiarError()" [class.invalido]="campoInvalido('fecha')">
+        </div>
+
+        <!-- Fila con horarios de inicio y fin de la reserva -->
+        <div class="fila-formulario">
+            <div class="grupo-formulario">
+                <label>Hora de inicio</label>
+                <input type="time" formControlName="hora_inicio" (input)="limpiarError()" [class.invalido]="campoInvalido('hora_inicio')">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Hora de fin</label>
+                <input type="time" formControlName="hora_fin" (input)="limpiarError()" [class.invalido]="campoInvalido('hora_fin')">
+            </div>
+        </div>
+
+        <!-- Mensaje de validación o error devuelto al intentar guardar -->
+        @if (mensajeError()) {
+            <div class="mensajeError" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                <span>{{ mensajeError() }}</span>
+            </div>
+        }
+
+        <!-- Botones para cancelar o confirmar la creación de la reserva -->
+        <div mat-dialog-actions class="botones-modal">
+            <button type="button" [mat-dialog-close]="false" class="btnCancelar">Cancelar</button>
+            <button type="submit" class="btnGuardar">Crear reserva</button>
+        </div>
+    </form>
+</div>
